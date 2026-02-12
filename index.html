@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,19 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JNSN CRIMES 3 Launch</title>
     <style>
-        /* White background as requested */
+        /* 1. DEFINE COLORS */
+        :root {
+            --bg-color: white;
+            --text-color: black;
+            --btn-bg: #eeeeee;
+            --btn-text: black;
+        }
+
+        /* 2. DARK MODE OVERRIDES */
+        body.dark-mode {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --btn-bg: #333333;
+            --btn-text: #ffffff;
+        }
+
         body {
-            background-color: white;
-            color: black;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            /* Black Comic Sans MS as requested */
             font-family: "Comic Sans MS", "Comic Sans", system-ui;
             text-align: center;
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
         }
 
         h1 {
@@ -30,6 +46,25 @@
             font-weight: bold;
         }
 
+        /* 3. BUTTON STYLING */
+        #theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-family: inherit;
+            background-color: var(--btn-bg);
+            color: var(--btn-text);
+            border: 2px solid var(--text-color);
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        #theme-toggle:hover {
+            opacity: 0.8;
+        }
+
         @media (max-width: 600px) {
             h1 { font-size: 1.5rem; }
             #countdown { font-size: 3rem; }
@@ -38,13 +73,33 @@
 </head>
 <body>
 
+    <button id="theme-toggle">Toggle Dark Mode</button>
+
     <h1>JNSN CRIMES 3 RELEASES IN...</h1>
     <div id="countdown">00:00:00:00</div>
 
     <script>
-        // Set the target date: Feb 15, 2026, at 4:00 PM (16:00:00)
-        // Using a ISO string ensures it is treated as a specific global moment.
-        // Adjust the "Z" or offset if you meant 4pm in a specific local timezone.
+        // --- THEME LOGIC ---
+        const toggleBtn = document.getElementById('theme-toggle');
+        const body = document.body;
+
+        // Check for saved preference
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Remember the choice
+            if (body.classList.contains('dark-mode')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // --- COUNTDOWN LOGIC ---
         const targetDate = new Date("2026-02-15T16:00:00").getTime();
 
         function updateCountdown() {
@@ -56,22 +111,18 @@
                 return;
             }
 
-            // Time calculations
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Display results with leading zeros
             document.getElementById("countdown").innerHTML = 
                 `${days}d ${hours}h ${minutes}m ${seconds}s`;
         }
 
-        // Update every 1 second
         setInterval(updateCountdown, 1000);
-        updateCountdown(); // Initial call
+        updateCountdown();
     </script>
 
 </body>
-
 </html>
