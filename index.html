@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,8 +32,58 @@
             height: 100vh;
             font-family: "Comic Sans MS", "Comic Sans", system-ui;
             text-align: center;
-            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+            transition: background-color 0.3s, color 0.3s;
+            overflow: hidden; 
         }
+
+        /* --- THE ANNOYING BOTTOM BANNER --- */
+        .fake-ad-banner {
+            position: fixed;
+            bottom: 0; /* MOVED TO BOTTOM */
+            left: 0;
+            width: 100%;
+            background: linear-gradient(to top, #8B4513, #D4AF37);
+            color: #fff;
+            padding: 15px;
+            z-index: 9999;
+            border-top: 5px solid #FFD700; /* Border on top now */
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+            animation: flashMe 0.8s infinite;
+            cursor: pointer;
+        }
+
+        @keyframes flashMe {
+            0% { background: #8B4513; }
+            50% { background: #FF0000; } 
+            100% { background: #D4AF37; }
+        }
+
+        .fake-ad-banner h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            text-shadow: 2px 2px #000;
+        }
+
+        .fake-ad-banner p {
+            margin: 5px 0 0;
+            font-weight: bold;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+
+        .close-ad {
+            position: absolute;
+            top: -20px; /* Floats slightly above the banner */
+            right: 10px;
+            background: #ff0000;
+            color: #fff;
+            font-size: 12px;
+            padding: 2px 8px;
+            border: 2px solid white;
+            cursor: help;
+        }
+
+        /* --- PAGE ELEMENTS --- */
 
         h1 {
             font-size: 3rem;
@@ -46,10 +95,9 @@
             font-weight: bold;
         }
 
-        /* 3. BUTTON STYLING */
         #theme-toggle {
             position: absolute;
-            top: 20px;
+            top: 20px; /* Back to original top position */
             right: 20px;
             padding: 10px 15px;
             cursor: pointer;
@@ -68,6 +116,7 @@
         @media (max-width: 600px) {
             h1 { font-size: 1.5rem; }
             #countdown { font-size: 3rem; }
+            .fake-ad-banner h2 { font-size: 0.9rem; }
         }
     </style>
 </head>
@@ -78,20 +127,24 @@
     <h1>JNSN CRIMES 3 RELEASES IN...</h1>
     <div id="countdown">00:00:00:00</div>
 
+    <div class="fake-ad-banner" onclick="alert('ERROR: Connection to GOLDE & BROWN lost. Please click 400 more times to reconnect.')">
+        <span class="close-ad">CLICK TO CLOSE [X]</span>
+        <h2>⚖️ GOLDE & BROWN DRUG LAWYERS ⚖️</h2>
+        <p>HAS THE PRICE OF FENT SKYROCKETED? DO YOU NEED COMPENSATION? CONTACT US</p>
+        <small>Notice: We are not responsible for any additional injuries caused by clicking this ad.</small>
+    </div>
+
     <script>
         // --- THEME LOGIC ---
         const toggleBtn = document.getElementById('theme-toggle');
         const body = document.body;
 
-        // Check for saved preference
         if (localStorage.getItem('theme') === 'dark') {
             body.classList.add('dark-mode');
         }
 
         toggleBtn.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
-            
-            // Remember the choice
             if (body.classList.contains('dark-mode')) {
                 localStorage.setItem('theme', 'dark');
             } else {
