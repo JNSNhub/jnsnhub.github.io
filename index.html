@@ -7,19 +7,23 @@
     <style>
         /* 1. DEFINE COLORS */
         :root {
-            --bg-color: white;
-            --text-color: black;
+            --bg-color: #ffffff;
+            --text-color: #000000;
             --btn-bg: #eeeeee;
-            --btn-text: black;
+            --btn-text: #000000;
+            --jnsn-red: #ff0000;
+            --border-color: #000000;
         }
 
-        /* 2. DARK MODE OVERRIDES */
         body.dark-mode {
             --bg-color: #121212;
             --text-color: #ffffff;
             --btn-bg: #333333;
             --btn-text: #ffffff;
+            --border-color: #ffffff;
         }
+
+        * { box-sizing: border-box; }
 
         body {
             background-color: var(--bg-color);
@@ -27,155 +31,176 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             font-family: "Comic Sans MS", "Comic Sans", system-ui;
             text-align: center;
             transition: background-color 0.3s, color 0.3s;
-            overflow: hidden; 
+            overflow-x: hidden;
         }
 
-        /* --- THE ANNOYING BOTTOM BANNER --- */
-        .fake-ad-banner {
-            position: fixed;
-            bottom: 0; /* MOVED TO BOTTOM */
-            left: 0;
+        /* --- JNSN INDUSTRIES HEADER (Dystopian Propaganda) --- */
+        #jnsn-header {
+            background: #000;
+            border-bottom: 5px solid var(--jnsn-red);
+            color: var(--jnsn-red);
+            padding: 15px 10px;
             width: 100%;
-            background: linear-gradient(to top, #8B4513, #D4AF37);
-            color: #fff;
-            padding: 15px;
-            z-index: 9999;
-            border-top: 5px solid #FFD700; /* Border on top now */
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
-            animation: flashMe 0.8s infinite;
-            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            z-index: 1000;
         }
 
-        @keyframes flashMe {
-            0% { background: #8B4513; }
-            50% { background: #FF0000; } 
-            100% { background: #D4AF37; }
-        }
-
-        .fake-ad-banner h2 {
+        #jnsn-header h2 {
             margin: 0;
-            font-size: 1.2rem;
-            text-shadow: 2px 2px #000;
+            background: var(--jnsn-red);
+            color: #000;
+            padding: 5px 10px;
+            font-size: 1.5rem;
+            display: inline-block;
+            text-transform: uppercase;
         }
 
-        .fake-ad-banner p {
-            margin: 5px 0 0;
+        .warning-blink {
             font-weight: bold;
-            font-size: 0.9rem;
-            text-decoration: underline;
+            margin: 10px 0 5px;
+            animation: blinker 0.6s step-start infinite;
         }
 
-        .close-ad {
-            position: absolute;
-            top: -20px; /* Floats slightly above the banner */
-            right: 10px;
-            background: #ff0000;
-            color: #fff;
-            font-size: 12px;
-            padding: 2px 8px;
-            border: 2px solid white;
-            cursor: help;
+        @keyframes blinker { 50% { opacity: 0; } }
+
+        .safe-stamp {
+            border: 2px dashed #00ff00;
+            color: #00ff00;
+            padding: 2px 5px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            display: inline-block;
+            margin-top: 5px;
         }
 
-        /* --- PAGE ELEMENTS --- */
+        /* --- MAIN CONTENT --- */
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
         h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
+            font-size: clamp(1.2rem, 5vw, 2.5rem);
+            margin-bottom: 10px;
         }
 
         #countdown {
-            font-size: 6rem;
-            font-weight: bold;
+            font-size: clamp(3rem, 15vw, 9rem); /* Responsive sizing */
+            font-weight: 900;
+            font-family: 'Comic Sans MS', system-ui;
+            line-height: 1;
+            margin: 10px 0;
         }
 
+        /* --- UI CONTROLS --- */
         #theme-toggle {
-            position: absolute;
-            top: 20px; /* Back to original top position */
-            right: 20px;
-            padding: 10px 15px;
+            padding: 12px 20px;
             cursor: pointer;
-            font-family: inherit;
             background-color: var(--btn-bg);
             color: var(--btn-text);
-            border: 2px solid var(--text-color);
-            border-radius: 8px;
+            border: 3px solid var(--border-color);
+            border-radius: 12px;
             font-weight: bold;
+            font-family: inherit;
+            margin-bottom: 100px; /* Keeps it clear of the bottom banner */
+            transition: transform 0.1s;
+            z-index: 500;
         }
 
-        #theme-toggle:hover {
-            opacity: 0.8;
+        #theme-toggle:active { transform: scale(0.95); }
+
+        /* --- BOTTOM LAWYER BANNER --- */
+        .lawyer-banner {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: linear-gradient(to top, #8B4513, #D4AF37);
+            color: #fff;
+            padding: 10px;
+            border-top: 4px solid #FFD700;
+            z-index: 9999;
+            animation: lawyerFlash 1s infinite;
         }
+
+        @keyframes lawyerFlash {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+            100% { filter: brightness(1); }
+        }
+
+        .lawyer-banner h3 { margin: 0; font-size: 1rem; text-shadow: 1px 1px #000; }
 
         @media (max-width: 600px) {
-            h1 { font-size: 1.5rem; }
-            #countdown { font-size: 3rem; }
-            .fake-ad-banner h2 { font-size: 0.9rem; }
+            #jnsn-header h2 { font-size: 1.1rem; }
+            .warning-blink { font-size: 0.9rem; }
         }
     </style>
 </head>
 <body>
 
-    <button id="theme-toggle">Toggle Dark Mode</button>
+    <div id="jnsn-header">
+        <h2>JNSN INDUSTRIES</h2>
+        <div class="warning-blink">!! MANDATORY VIEWING !!</div>
+        <p style="margin: 5px 0;">You get paid NOTHING | JNSN gets your soul <span class="safe-stamp">"Very Safe"</span></p>
+        <small>Retirement results in Sun-Launch Protocol.</small>
+    </div>
 
-    <h1>JNSN CRIMES 3 RELEASES IN...</h1>
-    <div id="countdown">00:00:00:00</div>
+    <div class="main-container">
+        <h1>JNSN CRIMES 3 RELEASES IN...</h1>
+        <div id="countdown">00:00:00:00</div>
+        <button id="theme-toggle">TOGGLE BRIGHT/DARK</button>
+    </div>
 
-    <div class="fake-ad-banner" onclick="alert('ERROR: Connection to GOLDE & BROWN lost. Please click 400 more times to reconnect.')">
-        <span class="close-ad">CLICK TO CLOSE [X]</span>
-        <h2>⚖️ GOLDE & BROWN DRUG LAWYERS ⚖️</h2>
-        <p>DO YOU NEED COMPENSATION? CONTACT US</p>
+    <div class="lawyer-banner" onclick="alert('LITIGATION PENDING...')">
+        <h3>⚖️ GOLDE & BROWN LAWYERS ⚖️</h3>
+        <p style="margin:0; font-size: 0.7rem;">Injured by JNSN? No you weren't...</p>
     </div>
 
     <script>
-        // --- THEME LOGIC ---
-        const toggleBtn = document.getElementById('theme-toggle');
+        // DARK MODE LOGIC
+        const btn = document.getElementById('theme-toggle');
         const body = document.body;
 
-        if (localStorage.getItem('theme') === 'dark') {
+        if (localStorage.getItem('jnsn-theme') === 'dark') {
             body.classList.add('dark-mode');
         }
 
-        toggleBtn.addEventListener('click', () => {
+        btn.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                localStorage.setItem('theme', 'dark');
-            } else {
-                localStorage.setItem('theme', 'light');
-            }
+            localStorage.setItem('jnsn-theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
         });
 
-        // --- COUNTDOWN LOGIC ---
-        const targetDate = new Date("2026-02-15T16:00:00").getTime();
+        // COUNTDOWN LOGIC
+        const target = new Date("2026-02-15T16:00:00").getTime();
 
-        function updateCountdown() {
+        function update() {
             const now = new Date().getTime();
-            const distance = targetDate - now;
+            const diff = target - now;
 
-            if (distance < 0) {
-                document.getElementById("countdown").innerHTML = "OUT NOW!";
+            if (diff < 0) {
+                document.getElementById("countdown").innerText = "OUT NOW";
                 return;
             }
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
 
-            document.getElementById("countdown").innerHTML = 
-                `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            document.getElementById("countdown").innerText = 
+                `${String(d).padStart(2,'0')}:${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
         }
 
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+        setInterval(update, 1000);
+        update();
     </script>
-
 </body>
 </html>
-
