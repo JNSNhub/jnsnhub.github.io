@@ -38,45 +38,6 @@
             overflow-x: hidden;
         }
 
-        /* --- JNSN INDUSTRIES HEADER (Dystopian Propaganda) --- */
-        #jnsn-header {
-            background: #000;
-            border-bottom: 5px solid var(--jnsn-red);
-            color: var(--jnsn-red);
-            padding: 15px 10px;
-            width: 100%;
-            font-family: 'Courier New', monospace;
-            z-index: 1000;
-        }
-
-        #jnsn-header h2 {
-            margin: 0;
-            background: var(--jnsn-red);
-            color: #000;
-            padding: 5px 10px;
-            font-size: 1.5rem;
-            display: inline-block;
-            text-transform: uppercase;
-        }
-
-        .warning-blink {
-            font-weight: bold;
-            margin: 10px 0 5px;
-            animation: blinker 0.6s step-start infinite;
-        }
-
-        @keyframes blinker { 50% { opacity: 0; } }
-
-        .safe-stamp {
-            border: 2px dashed #00ff00;
-            color: #00ff00;
-            padding: 2px 5px;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            display: inline-block;
-            margin-top: 5px;
-        }
-
         /* --- MAIN CONTENT --- */
         .main-container {
             flex: 1;
@@ -93,7 +54,7 @@
         }
 
         #countdown {
-            font-size: clamp(3rem, 15vw, 9rem); /* Responsive sizing */
+            font-size: clamp(3rem, 15vw, 9rem);
             font-weight: 900;
             font-family: 'Comic Sans MS', system-ui;
             line-height: 1;
@@ -110,7 +71,7 @@
             border-radius: 12px;
             font-weight: bold;
             font-family: inherit;
-            margin-bottom: 100px; /* Keeps it clear of the bottom banner */
+            margin-bottom: 100px; 
             transition: transform 0.1s;
             z-index: 500;
         }
@@ -128,6 +89,7 @@
             border-top: 4px solid #FFD700;
             z-index: 9999;
             animation: lawyerFlash 1s infinite;
+            cursor: pointer;
         }
 
         @keyframes lawyerFlash {
@@ -137,21 +99,9 @@
         }
 
         .lawyer-banner h3 { margin: 0; font-size: 1rem; text-shadow: 1px 1px #000; }
-
-        @media (max-width: 600px) {
-            #jnsn-header h2 { font-size: 1.1rem; }
-            .warning-blink { font-size: 0.9rem; }
-        }
     </style>
 </head>
 <body>
-
-    <div id="jnsn-header">
-        <h2>JNSN INDUSTRIES</h2>
-        <div class="warning-blink">!! MANDATORY VIEWING !!</div>
-        <p style="margin: 5px 0;">You get paid NOTHING | JNSN gets your soul <span class="safe-stamp">"Very Safe"</span></p>
-        <small>Retirement results in Sun-Launch Protocol.</small>
-    </div>
 
     <div class="main-container">
         <h1>JNSN CRIMES 3 RELEASES IN...</h1>
