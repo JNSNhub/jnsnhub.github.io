@@ -13,6 +13,8 @@
             --btn-text: #000000;
             --jnsn-red: #ff0000;
             --border-color: #000000;
+            --banner-bg: #222;
+            --banner-text: #fff;
         }
 
         body.dark-mode {
@@ -21,6 +23,7 @@
             --btn-bg: #333333;
             --btn-text: #ffffff;
             --border-color: #ffffff;
+            --banner-bg: #000;
         }
 
         * { box-sizing: border-box; }
@@ -36,6 +39,16 @@
             text-align: center;
             transition: background-color 0.3s, color 0.3s;
             overflow-x: hidden;
+        }
+
+        /* --- WARNING BANNER --- */
+        .pc-warning-banner {
+            background-color: var(--banner-bg);
+            color: var(--banner-text);
+            padding: 12px 10px;
+            font-size: 0.9rem;
+            border-bottom: 3px solid var(--jnsn-red);
+            letter-spacing: 0.5px;
         }
 
         /* --- MAIN CONTENT --- */
@@ -71,6 +84,7 @@
             border-radius: 12px;
             font-weight: bold;
             font-family: inherit;
+            margin-top: 20px;
             margin-bottom: 100px; 
             transition: transform 0.1s;
             z-index: 500;
@@ -103,6 +117,10 @@
 </head>
 <body>
 
+    <div class="pc-warning-banner">
+        ⚠️ <strong>For best experience:</strong> please access <strong>JNSN CRIMES 3</strong> through a PC ⚠️
+    </div>
+
     <div class="main-container">
         <h1>JNSN CRIMES 3 RELEASES IN...</h1>
         <div id="countdown">00:00:00:00</div>
@@ -128,7 +146,7 @@
             localStorage.setItem('jnsn-theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
         });
 
-        // COUNTDOWN LOGIC
+        // COUNTDOWN LOGIC (Current Date: 2026-02-15)
         const target = new Date("2026-02-15T16:00:00").getTime();
 
         function update() {
